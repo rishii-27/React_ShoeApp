@@ -1,7 +1,18 @@
 import React, { useState } from "react";
 
-const ShowProducts = ({ item }) => {
+const ShowProducts = ({ item, getCart, id }) => {
   const [quantity, setQuantity] = useState(1);
+
+  const addToCartHandle = (event) => {
+    event.preventDefault();
+    const receivedDataFromCtx = {
+      name: item.name,
+      quantity: quantity,
+      price: item.price,
+      id: id
+    };
+    getCart(receivedDataFromCtx);
+  };
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -20,17 +31,27 @@ const ShowProducts = ({ item }) => {
   };
 
   return (
-    <div>
-      <p>Name: {item.name}</p>
+    <div style={{ border: "1px solid black ", margin: "5px", padding: "10px" }}>
       <p>
-        Quantity:
+        <strong>Name: </strong>
+        {item.name}
+      </p>
+      <p>
+        <strong>Quantity: </strong>
         <button onClick={decreaseQuantity}>-</button>
         {quantity}
         <button onClick={increaseQuantity}>+</button>
       </p>
-      <p>Description: {item.description}</p>
+      <p>
+        <strong>Price: </strong>
+        {item.price}
+      </p>
+      <p>
+        <strong>Description: </strong>
+        {item.description}
+      </p>
       <div>
-        <button>Add to Cart</button>
+        <button onClick={addToCartHandle}>Add to Cart</button>
       </div>
       <br />
     </div>

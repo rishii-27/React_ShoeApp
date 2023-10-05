@@ -3,14 +3,21 @@ import React, { useState } from "react";
 const SellerForm = (props) => {
   const [productName, setProductName] = useState("");
   const [productQty, setProductQty] = useState("");
+  const [productPrice, setProductPrice] = useState("");
   const [productDescription, setProductDescription] = useState("");
 
   const nameChangeHandle = (event) => {
     setProductName(event.target.value);
   };
+
   const qtyChangeHandle = (event) => {
     setProductQty(event.target.value);
   };
+
+  const priceChangeHandle = (event) => {
+    setProductPrice(event.target.value);
+  };
+
   const descriptionChangeHandle = (event) => {
     setProductDescription(event.target.value);
   };
@@ -21,12 +28,14 @@ const SellerForm = (props) => {
     const enteredData = {
       name: productName,
       quantity: productQty,
+      price: productPrice,
       description: productDescription,
     };
 
     props.onAddData(enteredData);
     setProductName("");
     setProductQty("");
+    setProductPrice("");
     setProductDescription("");
   };
 
@@ -51,6 +60,18 @@ const SellerForm = (props) => {
             onChange={qtyChangeHandle}
             min="1"
             max="10"
+            required
+          />
+        </div>
+        <br />
+        <div>
+          <label>Price: </label>
+          <input
+            type="number"
+            value={productPrice}
+            onChange={priceChangeHandle}
+            min="1"
+            max="999"
             required
           />
         </div>
