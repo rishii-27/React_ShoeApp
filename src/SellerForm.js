@@ -30,6 +30,7 @@ const SellerForm = (props) => {
       quantity: productQty,
       price: productPrice,
       description: productDescription,
+      id: Math.random()
     };
 
     props.onAddData(enteredData);

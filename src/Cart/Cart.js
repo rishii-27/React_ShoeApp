@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import CartItem from "./CartItem";
+import CartContext from "../Store/cart-context";
 
-const Cart = ({ items }) => {
-  const [cartItems, setCartItems] = useState([]);
-
-  useEffect(() => {
-    setCartItems(items);
-  }, [items]);
+const Cart = () => {
+  const cartCtx = useContext(CartContext)
 
   const calculateTotalAmount = () => {
-    return cartItems.reduce((total, item) => {
+    return cartCtx.items.reduce((total, item) => {
       return total + item.price * item.quantity;
     }, 0);
   };
 
   return (
     <>
-      {cartItems.map((item) => (
+      {cartCtx.items.map((item) => (
         <CartItem key={item.id} {...item} />
       ))}
       <strong>Total Amount: ₹ {calculateTotalAmount()}</strong>

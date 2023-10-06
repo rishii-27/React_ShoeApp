@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import CartContext from "./Store/cart-context";
 
 const ShowProducts = ({ item, getCart, id }) => {
   const [quantity, setQuantity] = useState(1);
+
+  const cartCtx = useContext(CartContext);
 
   const addToCartHandle = (event) => {
     event.preventDefault();
@@ -9,9 +12,11 @@ const ShowProducts = ({ item, getCart, id }) => {
       name: item.name,
       quantity: quantity,
       price: item.price,
-      id: id
+      id: id,
     };
-    getCart(receivedDataFromCtx);
+    cartCtx.addItem(receivedDataFromCtx);
+    // getCart(receivedDataFromCtx);
+    console.log(cartCtx);
   };
 
   const decreaseQuantity = () => {
